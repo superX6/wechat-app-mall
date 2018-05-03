@@ -10,6 +10,7 @@ App({
       },
       success: function(res) {
         if (res.data.code == 0) {
+          console.log(res.data.data.value)
           wx.setStorageSync('mallName', res.data.data.value);
         }
       }
@@ -189,7 +190,7 @@ App({
   },
   globalData:{
     userInfo:null,
-    subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
+    subDomain: "superx", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
     version: "2.0",
     shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
   }
