@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.93",
-	"appid": "wx3438e3f7fc0b48ef",
-	"projectname": "mall",
+	"libVersion": "1.9.94",
+	"appid": "wxb1c3f78facf7443b",
+	"projectname": "xiaoliu",
 	"isGameTourist": false,
 	"condition": {
 		"search": {

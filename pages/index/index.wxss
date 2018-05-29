@@ -175,7 +175,7 @@ swiper-item image {
   background-color: #fff;
 }
 .coupons-item{
-  width:300rpx;
+  width:332rpx;
   height: 180rpx;
   margin: 10rpx;
   padding-top: 20rpx;
@@ -201,7 +201,7 @@ swiper-item image {
   display: flex;
   flex-direction: column;
 }
-.serarch-content{
+.search-content{
    background: white;
    width:650rpx;
    display: flex;

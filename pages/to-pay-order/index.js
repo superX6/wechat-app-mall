@@ -24,12 +24,14 @@ Page({
     //立即购买下单
     if ("buyNow"==that.data.orderType){
       var buyNowInfoMem = wx.getStorageSync('buyNowInfo');
+      //that.data.kjId = buyNowInfoMem.kjId;
       if (buyNowInfoMem && buyNowInfoMem.shopList) {
         shopList = buyNowInfoMem.shopList
       }
     }else{
       //购物车下单
       var shopCarInfoMem = wx.getStorageSync('shopCarInfo');
+      //that.data.kjId = buyNowInfoMem.kjId;
       if (shopCarInfoMem && shopCarInfoMem.shopList) {
         // shopList = shopCarInfoMem.shopList
         shopList = shopCarInfoMem.shopList.filter(entity => {
@@ -65,7 +67,7 @@ Page({
   createOrder:function (e) {
     wx.showLoading();
     var that = this;
-    var loginToken = app.globalData.token // 用户登录 token
+    var loginToken = wx.getStorageSync('token') // 用户登录 token
     var remark = ""; // 备注信息
     if (e) {
       remark = e.detail.value.remark; // 备注信息
@@ -76,6 +78,9 @@ Page({
       goodsJsonStr: that.data.goodsJsonStr,
       remark: remark
     };
+    if (that.data.kjId) {
+      postData.kjid = that.data.kjId;
+    }
     if (that.data.isNeedLogistics > 0) {
       if (!that.data.curAddressData) {
         wx.hideLoading();
@@ -145,14 +150,16 @@ Page({
         postJsonString.keyword4 = { value: '订单已关闭', color: '#173177' }
         postJsonString.keyword5 = { value: '您可以重新下单，请在30分钟内完成支付', color:'#173177'}
         app.sendTempleMsg(res.data.data.id, -1,
-          'mGVFc31MYNMoR9Z-A9yeVVYLIVGphUVcK2-S2UdZHmg', e.detail.formId,
+          'XT_o5z33hKKPqxv5kt2H6lzOWPFbwrpRSn7Wa3DM-BA', e.detail.formId,
           'pages/index/index', JSON.stringify(postJsonString));
+  
         postJsonString = {};
+        console.log(res.data);
         postJsonString.keyword1 = { value: '您的订单已发货，请注意查收', color: '#173177' }
         postJsonString.keyword2 = { value: res.data.data.orderNumber, color: '#173177' }
         postJsonString.keyword3 = { value: res.data.data.dateAdd, color: '#173177' }
         app.sendTempleMsg(res.data.data.id, 2,
-          'Arm2aS1rsklRuJSrfz-QVoyUzLVmU2vEMn_HgMxuegw', e.detail.formId,
+          'M0DwJTHpP0kIEKLXr9Qjp21QpIc1NszILjUkOxnAmJc', e.detail.formId,
           'pages/order-details/index?id=' + res.data.data.id, JSON.stringify(postJsonString));
         // 下单成功，跳转到订单管理界面
         wx.redirectTo({
@@ -166,7 +173,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/user/shipping-address/default',
       data: {
-        token:app.globalData.token
+        token: wx.getStorageSync('token')
       },
       success: (res) =>{
         if (res.data.code == 0) {
@@ -237,7 +244,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/discounts/my',
       data: {
-        token: app.globalData.token,
+        token: wx.getStorageSync('token'),
         status:0
       },
       success: function (res) {
